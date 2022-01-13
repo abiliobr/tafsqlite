@@ -1,6 +1,6 @@
 # Teste de uso de SQLite para registros financeiros
 
-Neste projeto, vamos testar o uso do SQLite para a gerência de informação financeira pessoal ou doméstica, tais como receitas de salários ou serviços prestados, despesas com alimentação ou transporte, etc. Os passos necessários para o teste são:
+Neste projeto, vamos testar o uso do SQLite para a gerência de informações financeiras no âmbito pessoal ou doméstico, tais como receitas de salários ou serviços prestados, despesas com alimentação ou transporte, etc. Os passos necessários para o teste são:
 
 1. Projeto de banco de dados de registro de finanças
 2. Inserção de dados fictícios
@@ -32,7 +32,7 @@ Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343
      - transacao_id
      - valor
 ```
-A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, segundo o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" no esquema abaixo:
+A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" no esquema abaixo:
 ```
 transacao -----< partida >----- conta
 ```
@@ -94,7 +94,7 @@ conta      partida    transacao
 ## Parte 2 - Inserção de dados nas tabelas
 
 Começando pela tabela ``transacao``, vamos registrar as seguintes ocorrências:
-1. Recebimento de salário de 2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro/2019;
+1. Recebimento de salário de 2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
 2. Venda de um objeto usado no valor de 130,00 no dia 10/01/2020;
-3. Renda extraordinária de 150,00 num serviço de montagem de um móvel no dia 28/01/2020;
+3. Renda extraordinária de 150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
 4. Rendimento de 17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
