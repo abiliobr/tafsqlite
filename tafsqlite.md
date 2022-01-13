@@ -29,7 +29,7 @@ Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343
 
 A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 <pre>
-**transacao** -----< **partida** >----- conta
+<b>transacao</b> -----< <b>partida<b> >----- <b>conta**
 </pre>
 ### Criação do banco de dados e tabelas
 
