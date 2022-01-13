@@ -32,7 +32,7 @@ Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343
      - transacao_id
      - valor
 ```
-A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" no esquema abaixo:
+A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 ```
 transacao -----< partida >----- conta
 ```
