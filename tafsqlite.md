@@ -8,20 +8,22 @@ Neste projeto, vamos testar o uso do SQLite para a gerência de informações fi
 4. Avaliação da estrutura do banco de dados
 
 ## Parte 1 - O projeto de banco de dados
-Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343/database-schema-design-for-a-double-entry-accounting-system e em https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8, o esquema inicial para as tabelas poderá ficar assim:
+Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabelas poderá ficar assim:
+[1]: https://stackoverflow.com/questions/2494343/database-schema-design-for-a-double-entry-accounting-system
+[2]: https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8
 
-* Tabela: **``transacao``**
+* Tabela: **`transacao`**
   - ``id``
   - ``data``
   - ``valor``
   - ``historico``
   - ``referente``
-* Tabela: **``conta``**
+* Tabela: <b>`conta`</b>
   - ``id``
   - ``descricao``
   - ``dc``
   - ``codigo``
-* Tabela: **``partida``**
+* Tabela: <b>``partida``</b>
   - ``id``
   - ``conta_id``
   - ``transacao_id``
@@ -29,7 +31,7 @@ Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343
 
 A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 <pre>
-<b>transacao</b> -----< <b>partida<b> >----- <b>conta**
+<b>transacao</b> -----< <b>partida</b> >----- <b>conta</b>
 </pre>
 ### Criação do banco de dados e tabelas
 
