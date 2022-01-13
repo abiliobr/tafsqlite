@@ -23,15 +23,15 @@ Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabe
   - `descricao`
   - `dc`
   - `codigo`
-* Tabela: **`partida`**
+* Tabela: **`partimento`**
   - `id`
   - `conta_id`
   - `transacao_id`
   - `valor`
 
-A tabela `partida` representa os registros financeiros de uma transação associados a contas na tabela `conta`, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela `partida` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
+A tabela `partimento` representa os registros financeiros de uma transação associados a contas na tabela `conta`, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela `partimento` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 <pre>
-<b>transacao</b> -----< <b>partida</b> >----- <b>conta</b>
+<b>transacao</b> -----< <b>partimento</b> >----- <b>conta</b>
 </pre>
 ### Criação do banco de dados e tabelas
 
@@ -70,7 +70,7 @@ CREATE TABLE conta (
 <b>
 sqlite>
 </b>
-CREATE TABLE partida (
+CREATE TABLE partimento (
     id           INTEGER         PRIMARY KEY AUTOINCREMENT
                                  NOT NULL,
     transacao_id INTEGER         REFERENCES transacao (id) ON DELETE CASCADE
@@ -83,7 +83,7 @@ CREATE TABLE partida (
 );
 
 <b>sqlite></b> .tables
-conta      partida    transacao
+conta      partimento    transacao
 
 <b>sqlite></b> .quit
 </b>
@@ -92,10 +92,11 @@ conta      partida    transacao
 
 Começando pela tabela `transacao`, vamos registrar as seguintes ocorrências:
 
-1. Recebimento de salário de $2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
-2. Venda de um objeto usado no valor de $130,00 no dia 10/01/2020;
-3. Renda extraordinária de $150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
-4. Rendimento de $17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
+1. Recebimento de salário de 2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
+2. Venda de um objeto usado no valor de 130,00 no dia 10/01/2020;
+3. Renda extraordinária de 150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
+4. Rendimento de 17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
+
 
 
 # Referências
