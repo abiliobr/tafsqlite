@@ -13,10 +13,10 @@ Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabe
 [^2]: https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8
 
 * Tabela: **`transacao`**
-  - ``id``
-  - ``data``
-  - ``valor``
-  - ``historico``
+  - `id`
+  - `data`
+  - `valor`
+  - `historico``
   - ``referente``
 * Tabela: **`conta`**
   - ``id``
@@ -24,12 +24,12 @@ Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabe
   - ``dc``
   - ``codigo``
 * Tabela: **`partida`**
-  - ``id``
-  - ``conta_id``
-  - ``transacao_id``
-  - ``valor``
+  - ``id`
+  - `conta_id`
+  - `transacao_id`
+  - `valor`
 
-A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
+A tabela `partida` representa os registros financeiros de uma transação associados a contas na tabela `conta`, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela `partida` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 <pre>
 <b>transacao</b> -----< <b>partida</b> >----- <b>conta</b>
 </pre>
@@ -90,7 +90,7 @@ conta      partida    transacao
 </pre>
 ## Parte 2 - Inserção de dados nas tabelas
 
-Começando pela tabela ``transacao``, vamos registrar as seguintes ocorrências:
+Começando pela tabela `transacao`, vamos registrar as seguintes ocorrências:
 1. Recebimento de salário de $2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
 2. Venda de um objeto usado no valor de $130,00 no dia 10/01/2020;
 3. Renda extraordinária de $150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
