@@ -9,7 +9,7 @@ Neste projeto, vamos testar o uso do SQLite para a gerência de informações fi
 
 ## Parte 1 - O projeto de banco de dados
 Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabelas poderá ficar assim:
-[^1]: https://stackoverflow.com/questions/2494343/database-schema-design-for-a-double-entry-accounting-system
+[^1]: (https://stackoverflow.com/questions/2494343/database-schema-design-for-a-double-entry-accounting-system)
 [^2]: https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8
 
 * Tabela: **`transacao`**
@@ -18,12 +18,12 @@ Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabe
   - ``valor``
   - ``historico``
   - ``referente``
-* Tabela: <b>`conta`</b>
+* Tabela: **`conta`**
   - ``id``
   - ``descricao``
   - ``dc``
   - ``codigo``
-* Tabela: <b>``partida``</b>
+* Tabela: **`partida`**
   - ``id``
   - ``conta_id``
   - ``transacao_id``
