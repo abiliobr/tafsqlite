@@ -16,15 +16,15 @@ Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabe
   - `id`
   - `data`
   - `valor`
-  - `historico``
-  - ``referente``
+  - `historico`
+  - `referente`
 * Tabela: **`conta`**
-  - ``id``
-  - ``descricao``
-  - ``dc``
-  - ``codigo``
+  - `id`
+  - `descricao`
+  - `dc`
+  - `codigo`
 * Tabela: **`partida`**
-  - ``id`
+  - `id`
   - `conta_id`
   - `transacao_id`
   - `valor`
@@ -91,7 +91,10 @@ conta      partida    transacao
 ## Parte 2 - Inserção de dados nas tabelas
 
 Começando pela tabela `transacao`, vamos registrar as seguintes ocorrências:
+
 1. Recebimento de salário de $2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
 2. Venda de um objeto usado no valor de $130,00 no dia 10/01/2020;
 3. Renda extraordinária de $150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
 4. Rendimento de $17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
+
+# Referências
