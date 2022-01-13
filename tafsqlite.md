@@ -11,13 +11,12 @@ Neste projeto, vamos testar o uso do SQLite para a gerência de informações fi
 Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343/database-schema-design-for-a-double-entry-accounting-system e em https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8, o esquema inicial para as tabelas poderá ficar assim:
 
 - Tabela: ``transacao``
-```
-     - id
-     - data
-     - valor
-     - historico
-     - referente
-```
+  - ``id``
+  - ``data``
+  - ``valor``
+  - ``historico``
+  - ``referente``
+
 - Tabela: ``conta``
 ```
      - id
@@ -94,7 +93,7 @@ conta      partida    transacao
 ## Parte 2 - Inserção de dados nas tabelas
 
 Começando pela tabela ``transacao``, vamos registrar as seguintes ocorrências:
-1. Recebimento de salário de 2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
-2. Venda de um objeto usado no valor de 130,00 no dia 10/01/2020;
-3. Renda extraordinária de 150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
-4. Rendimento de 17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
+1. Recebimento de salário de $2.740,42 da empresa XYZ em 05/01/2020 referente ao mês de dezembro de 2019;
+2. Venda de um objeto usado no valor de $130,00 no dia 10/01/2020;
+3. Renda extraordinária de $150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
+4. Rendimento de $17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
