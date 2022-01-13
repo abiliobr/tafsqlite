@@ -10,27 +10,27 @@ Neste projeto, vamos testar o uso do SQLite para a gerência de informações fi
 ## Parte 1 - O projeto de banco de dados
 Inspirado nas ideias apresentadas em https://stackoverflow.com/questions/2494343/database-schema-design-for-a-double-entry-accounting-system e em https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8, o esquema inicial para as tabelas poderá ficar assim:
 
-* Tabela: ``transacao``
+* Tabela: **``transacao``**
   - ``id``
   - ``data``
   - ``valor``
   - ``historico``
   - ``referente``
-* Tabela: ``conta``
+* Tabela: **``conta``**
   - ``id``
   - ``descricao``
   - ``dc``
   - ``codigo``
-* Tabela: ``partida``
+* Tabela: **``partida``**
   - ``id``
   - ``conta_id``
   - ``transacao_id``
   - ``valor``
 
 A tabela ``partida`` representa os registros financeiros de uma transação associados a contas na tabela ``conta``, de acordo com o método contábil das "partidas dobradas". Portanto, a tabela ``partida`` representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
-```
-transacao -----< partida >----- conta
-```
+<pre>
+**transacao** -----< **partida** >----- conta
+</pre>
 ### Criação do banco de dados e tabelas
 
 No SQLite, a criação do banco de dados é feita simplesmente com o comando:
