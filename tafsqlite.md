@@ -97,4 +97,5 @@ Começando pela tabela `transacao`, vamos registrar as seguintes ocorrências:
 3. Renda extraordinária de $150,00 pelo serviço de montagem de um móvel no dia 28/01/2020;
 4. Rendimento de $17,32 numa aplicacao financeira no final do mês de janeiro de 2020.
 
+
 # Referências
