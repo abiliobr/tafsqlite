@@ -57,9 +57,9 @@ CREATE TABLE conta (
                             NOT NULL,
     descricao VARCHAR (100) NOT NULL,
     codigo    VARCHAR (5)   NOT NULL,
-    dc        VARCHAR (1)   NOT NULL
-                            CHECK (dc IN ("C", "D", "*") ) 
+    dc        VARCHAR (1)   CHECK (dc IN ("C", "D") ) 
 );
+
 
 CREATE TABLE partimento (
     id           INTEGER         PRIMARY KEY AUTOINCREMENT
@@ -127,39 +127,36 @@ Após a inserção dos registros, a listagem da tabela **`transacao`** poderá f
 | 1  | 2020/01/05 |         1940.42         | Proventos                          | dezembro/2019           |
 | 2  | 2020/01/06 |          967.12         | Compras no supermercado XXX        |                         |
 | 3  | 2020/01/09 |           80.78         | Pagto de conta de energia eletrica | 06/12/2019 a 05/01/2020 |
-| 4  | 2020/01/10 |           44.51         | Pagto de conta de agua             | dezembro/2019           |
-| 5  | 2020/01/10 |           98.99         | Pagto de conta de telefone         | dezembro/2019           |
-| 6  | 2020/01/10 |          135.40         | Compra de gas de cozinha           |                         |
-| 7  | 2020/01/12 |          201.40         | Compras na farmacia YYY            |                         |
-| 8  | 2020/01/28 |          150.00         | Renda de servico de montagem       |                         |
-| 9  | 2020/01/30 |           29.89         | Pagto de imposto territorial       | 2020                    |
-| 10 | 2020/01/31 |           17.32         | Rendimento de aplicacao financeira | 31/01/2020              |
-| 11 | 2020/02/05 |         1950.11         | Proventos          | janeiro/2020            |
-| 12 | 2020/02/06 |         1267.12         | Compras no supermercado XXX        |                         |
-| 13 | 2020/02/09 |           84.71         | Pagto de conta de energia eletrica | 06/01/2020 a 05/02/2020 |
-| 14 | 2020/02/10 |           44.51         | Pagto de conta de agua             | janeiro/2020            |
-| 15 | 2020/02/10 |           98.99         | Pagto de conta de telefone         | janeiro/2020            |
-| 16 | 2020/02/14 |          140.00         | Venda de maquina usada             |                         |
-| 17 | 2020/02/16 |           41.27         | Despesas na farmacia YYY           |                         |
-| 18 | 2020/02/28 |           16.27         | Rendimento de aplicacao financeira | 28/02/2020              |
-| 19 | 2020/03/05 |         1940.42         | Proventos          | fevereiro/2020          |
-| 20 | 2020/03/06 |          807.20         | Compras no supermercado ZZZ        |                         |
-| 21 | 2020/03/09 |           80.44         | Pagto de conta de energia eletrica | 06/02/2020 a 05/03/2020 |
-| 22 | 2020/03/10 |           44.32         | Pagto de conta de agua             | fevereiro/2020          |
-| 23 | 2020/03/10 |           98.99         | Pagto de conta de telefone         | fevereiro/2020          |
-| 24 | 2020/03/11 |          132.20         | Compra de gas de cozinha           |                         |
-| 25 | 2020/03/16 |          158.00         | Vendas de doces e salgados         |                         |
-| 26 | 2020/03/26 |          407.70         | Compras no supermercado XXX        |                         |
-| 27 | 2020/03/28 |           16.22         | Rendimento de aplicacao financeira | 31/03/2020              |
-| 28 | 2020/04/05 |         1950.68         | Proventos          | marco/2020              |
-| 29 | 2020/04/06 |          902.40         | Compras no supermercado SSS        |                         |
-| 30 | 2020/04/09 |           80.44         | Pagto de conta de energia eletrica | 06/03/2020 a 05/04/2020 |
-| 31 | 2020/04/10 |           46.70         | Pagto de conta de agua             | marco/2020              |
-| 32 | 2020/04/10 |           98.90         | Pagto de conta de telefone         | marco/2020              |
-| 33 | 2020/04/11 |          130.33         | Compra de gas de cozinha           |                         |
-| 34 | 2020/04/26 |           50.40         | Despesa de transporte              |                         |
-| 35 | 2020/04/30 |           17.86         | Rendimento de aplicacao financeira | 30/04/2020              |
+| 4  | 2020/01/10 |           98.99         | Pagto de conta de telefone         | dezembro/2019           |
+| 5  | 2020/01/10 |          135.40         | Compra de gas de cozinha           |                         |
+| 6  | 2020/01/12 |          201.40         | Compras na farmacia YYY            |                         |
+| 7  | 2020/01/28 |          150.00         | Renda de servico de montagem       |                         |
+| 8  | 2020/01/30 |           29.89         | Pagto de imposto territorial       | 2020                    |
+| 9  | 2020/01/31 |           17.32         | Rendimento de aplicacao financeira | 31/01/2020              |
+| 10 | 2020/02/05 |         1950.11         | Proventos                          | janeiro/2020            |
+| 11 | 2020/02/06 |         1267.12         | Compras no supermercado XXX        |                         |
+| 12 | 2020/02/09 |           84.71         | Pagto de conta de energia eletrica | 06/01/2020 a 05/02/2020 |
+| 13 | 2020/02/10 |           98.99         | Pagto de conta de telefone         | janeiro/2020            |
+| 14 | 2020/02/14 |          140.00         | Venda de maquina usada             |                         |
+| 15 | 2020/02/16 |           41.27         | Despesas na farmacia YYY           |                         |
+| 16 | 2020/02/28 |           16.27         | Rendimento de aplicacao financeira | 28/02/2020              |
+| 17 | 2020/03/05 |         1940.42         | Proventos                          | fevereiro/2020          |
+| 18 | 2020/03/06 |          807.20         | Compras no supermercado ZZZ        |                         |
+| 19 | 2020/03/09 |           80.44         | Pagto de conta de energia eletrica | 06/02/2020 a 05/03/2020 |
+| 20 | 2020/03/10 |           98.99         | Pagto de conta de telefone         | fevereiro/2020          |
+| 21 | 2020/03/11 |          132.20         | Compra de gas de cozinha           |                         |
+| 22 | 2020/03/16 |          158.00         | Vendas de doces e salgados         |                         |
+| 23 | 2020/03/26 |          407.70         | Compras no supermercado XXX        |                         |
+| 24 | 2020/03/28 |           16.22         | Rendimento de aplicacao financeira | 31/03/2020              |
+| 25 | 2020/04/05 |         1950.68         | Proventos                          | marco/2020              |
+| 26 | 2020/04/06 |          902.40         | Compras no supermercado SSS        |                         |
+| 27 | 2020/04/09 |           80.44         | Pagto de conta de energia eletrica | 06/03/2020 a 05/04/2020 |
+| 28 | 2020/04/10 |           98.90         | Pagto de conta de telefone         | marco/2020              |
+| 29 | 2020/04/26 |           50.40         | Despesa de transporte              |                         |
+| 30 | 2020/04/26 |          107.00         | Pagto de servico de limpeza        |                         |
+| 31 | 2020/04/30 |           17.86         | Rendimento de aplicacao financeira | 30/04/2020              |
 +----+------------+-------------------------+------------------------------------+-------------------------+
+
 
 </pre>
 ### As contas
@@ -190,7 +187,6 @@ O patrimônio pessoal é representado por diversos elementos: dinheiro, contas b
 
 Nesta simulação, vamos considerar apenas o recebimento de dinheiro em espécie ou através de uma conta bancária. Para simplificar a demonstração, não será levado em conta o passivo, que são obrigações a cumprir, como contas a pagar (prestações), empréstimos, etc.
 
-Então, o "dinheiro" vai ser representado pelos códigos:
 <pre>
 A     - Ativo
 A-100 - Dinheiro em Carteira
