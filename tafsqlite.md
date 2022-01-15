@@ -75,13 +75,7 @@ CREATE TABLE partimento (
                                  CHECK (dc IN ("C", "D") ) 
 );
 ```
-<pre>
-<b>sqlite></b> .tables
-conta      partimento    transacao
 
-<b>sqlite></b> .quit
-</b>
-</pre>
 ## Parte 2 - Inserção de dados nas tabelas
 ### Transações de receitas e despesas
 Começando pela tabela **`transacao`**, vamos registrar ocorrências de receitas e despesas fictícias:
