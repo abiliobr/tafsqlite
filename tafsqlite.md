@@ -173,7 +173,6 @@ R-100 - Salários e Proventos
 R-200 - Serviços Diversos
 R-500 - Vendas de Itens Diversos
 R-900 - Rendimentos de Aplicações Financeiras
-
 D     - Despesas
 D-010 - Energia Elétrica
 D-020 - Água e Esgoto
@@ -187,12 +186,11 @@ D-800 - Serviços Diversos
 D-900 - Impostos
 </pre>
 
-### Os principais ativos
-
 O patrimônio pessoal é representado por diversos elementos: dinheiro, contas bancárias, imóveis, veículos, direitos autoriais, obrigações financeiras, etc.
 
-Nesta simulação, vamos considerar apenas o recebimento de dinheiro em espécie ou através de uma conta bancária. Quanto ao passivo, que são obrigações a cumprir, como contas a pagar (prestações), empréstimos, etc. este não será abordado, para simplificar a demonstração. O "dinheiro" vai ser representado pelos códigos:
+Nesta simulação, vamos considerar apenas o recebimento de dinheiro em espécie ou através de uma conta bancária. Para simplificar a demonstração, não será levado em conta o passivo, que são obrigações a cumprir, como contas a pagar (prestações), empréstimos, etc.
 
+Então, o "dinheiro" vai ser representado pelos códigos:
 <pre>
 A     - Ativo
 A-100 - Dinheiro em Carteira
@@ -200,7 +198,59 @@ A-210 - Conta Bancária
 A-220 - Aplicação Financeira
 </pre>
 
-### Dados para a tabela `contas`
+Os registros na tabela `contas` inicialmente serão estes:
+```sqlite
+INSERT INTO conta (descricao, codigo) VALUES('Ativo','A');
+INSERT INTO conta (descricao, codigo) VALUES('Dinheiro em Carteira','A-100');
+INSERT INTO conta (descricao, codigo) VALUES('Conta Bancaria','A-210');
+INSERT INTO conta (descricao, codigo) VALUES('Aplicacao Financeira','A-220');
+INSERT INTO conta (descricao, codigo) VALUES('Passivo','P');
+INSERT INTO conta (descricao, codigo) VALUES('Receitas','R');
+INSERT INTO conta (descricao, codigo) VALUES('Salarios e Proventos','R-100');
+INSERT INTO conta (descricao, codigo) VALUES('Servicos Diversos','R-200');
+INSERT INTO conta (descricao, codigo) VALUES('Vendas de Itens Diversos','R-500');
+INSERT INTO conta (descricao, codigo) VALUES('Rendimentos de Aplicacao Financeira','R-900');
+INSERT INTO conta (descricao, codigo) VALUES('Despesas','D');
+INSERT INTO conta (descricao, codigo) VALUES('Energia Eletrica','D-010');
+INSERT INTO conta (descricao, codigo) VALUES('Agua e Esgoto','D-020');
+INSERT INTO conta (descricao, codigo) VALUES('Gas de Cozinha','D-030');
+INSERT INTO conta (descricao, codigo) VALUES('Telefone','D-040');
+INSERT INTO conta (descricao, codigo) VALUES('Transportes','D-050');
+INSERT INTO conta (descricao, codigo) VALUES('Supermercados','D-510');
+INSERT INTO conta (descricao, codigo) VALUES('Farmacias','D-520');
+INSERT INTO conta (descricao, codigo) VALUES('Lojas Diversas','D-530');
+INSERT INTO conta (descricao, codigo) VALUES('Servicos Diversos','D-800');
+INSERT INTO conta (descricao, codigo) VALUES('Impostos','D-900');
 
+```
+<pre>
+<b>sqlite></b> .mode table
+<b>sqlite></b> SELECT * FROM conta;
++----+-------------------------------------+--------+----+
+| id |              descricao              | codigo | dc |
++----+-------------------------------------+--------+----+
+| 1  | Ativo                               | A      |    |
+| 2  | Dinheiro em Carteira                | A-100  |    |
+| 3  | Conta Bancaria                      | A-210  |    |
+| 4  | Aplicacao Financeira                | A-220  |    |
+| 5  | Passivo                             | P      |    |
+| 6  | Receitas                            | R      |    |
+| 7  | Salarios e Proventos                | R-100  |    |
+| 8  | Servicos Diversos                   | R-200  |    |
+| 9  | Vendas de Itens Diversos            | R-500  |    |
+| 10 | Rendimentos de Aplicacao Financeira | R-900  |    |
+| 11 | Despesas                            | D      |    |
+| 12 | Energia Eletrica                    | D-010  |    |
+| 13 | Agua e Esgoto                       | D-020  |    |
+| 14 | Gas de Cozinha                      | D-030  |    |
+| 15 | Telefone                            | D-040  |    |
+| 16 | Transportes                         | D-050  |    |
+| 17 | Supermercados                       | D-510  |    |
+| 18 | Farmacias                           | D-520  |    |
+| 19 | Lojas Diversas                      | D-530  |    |
+| 20 | Servicos Diversos                   | D-800  |    |
+| 21 | Impostos                            | D-900  |    |
++----+-------------------------------------+--------+----+
+</pre>
 
 # Referências
