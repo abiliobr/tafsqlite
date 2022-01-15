@@ -1,5 +1,0 @@
-
-
-Comando|Ação|||
----|---|---|---|
-`git --version`|mostrar a versão|||
