@@ -297,7 +297,22 @@ INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(3,4,4877.14,'S')
 
 Depois, a primeira demonstração pode ser obtida assim:
 <pre>
-<b>sqlite></b> SELECT conta.codigo AS Codigo, conta.descricao AS Conta, printf('%15.2f',ABS(SUM(IIF(entrada.dcs="D" OR (entrada.dcs="S" and conta.natureza="D"),-1*entrada.valor,IIF(entrada.dcs="C" OR (entrada.dcs="S" and conta.natureza="C"),entrada.valor,0))))) AS Saldo, conta.natureza AS 'D/C' FROM entrada INNER JOIN conta ON entrada.conta_id = conta.id INNER JOIN transacao ON entrada.transacao_id = transacao.id WHERE entrada.dcs = "S" and transacao.data = '2020/01/01' GROUP BY conta_id HAVING transacao.data <= '2020/01/01' ORDER BY Codigo;
+<b>sqlite></b> SELECT conta.codigo AS Codigo, conta.descricao AS Conta, 
+  printf('%15.2f',ABS(SUM(IIF(entrada.dcs = "D" OR (entrada.dcs = "S" and conta.natureza = "D"), -1 * entrada.valor,
+                          IIF(entrada.dcs = "C" OR (entrada.dcs = "S" and conta.natureza = "C"),entrada.valor,0))))) AS Saldo, 
+  conta.natureza AS 'D/C' 
+FROM entrada 
+  INNER JOIN conta ON entrada.conta_id = conta.id 
+  INNER JOIN transacao ON entrada.transacao_id = transacao.id 
+WHERE 
+  entrada.dcs = "S" 
+  and transacao.data = '2020/01/01' 
+GROUP BY 
+  conta_id 
+HAVING 
+  transacao.data <= '2020/01/01' 
+ORDER BY 
+  Codigo;
 +--------+----------------------+-----------------+-----+
 | Codigo |        Conta         |      Saldo      | D/C |
 +--------+----------------------+-----------------+-----+
@@ -307,7 +322,7 @@ Depois, a primeira demonstração pode ser obtida assim:
 +--------+----------------------+-----------------+-----+
 </pre>
 
-## Lançamentos
+## Primeiros lançamentos
 Agora, os lançamentos para o restante próximas transações, com algumas observações:
 
 * O salário é depositado na conta bancária; as rendas extras foram recebidas em dinheiro físico;
@@ -340,38 +355,50 @@ INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(14, 3,   17.32,'
 
 ```
 <pre>
-<b>sqlite></b> SELECT id, transacao_id, conta_id, printf('%15.2f',valor, dcs) FROM entrada;
-+----+--------------+----------+-----------------------------+
-| id | transacao_id | conta_id | printf('%15.2f',valor, dcs) |
-+----+--------------+----------+-----------------------------+
-| 1  | 1            | 2        |           75.40             |
-| 2  | 2            | 3        |          482.86             |
-| 3  | 3            | 4        |         4877.14             |
-| 4  | 4            | 20       |         1940.42             |
-| 5  | 4            | 3        |         1940.42             |
-| 6  | 5            | 3        |          967.12             |
-| 7  | 5            | 14       |          967.12             |
-| 8  | 6            | 3        |           80.78             |
-| 9  | 6            | 9        |           80.78             |
-| 10 | 7            | 3        |           98.99             |
-| 11 | 7            | 12       |           98.99             |
-| 12 | 8            | 2        |          135.40             |
-| 13 | 8            | 11       |          135.40             |
-| 14 | 9            | 2        |          201.40             |
-| 15 | 9            | 15       |          201.40             |
-| 16 | 10           | 21       |          150.00             |
-| 17 | 10           | 2        |          150.00             |
-| 18 | 11           | 3        |          250.00             |
-| 19 | 11           | 2        |          250.00             |
-| 20 | 12           | 3        |           29.89             |
-| 21 | 12           | 18       |           29.89             |
-| 22 | 13           | 2        |          100.00             |
-| 23 | 13           | 4        |          100.00             |
-| 24 | 14           | 4        |           17.32             |
-| 25 | 14           | 3        |           17.32             |
-+----+--------------+----------+-----------------------------+
+<b>sqlite></b> SELECT id, transacao_id, conta_id, printf('%15.2f',valor), dcs FROM entrada;
++----+--------------+----------+------------------------+-----+
+| id | transacao_id | conta_id | printf('%15.2f',valor) | dcs |
++----+--------------+----------+------------------------+-----+
+| 1  | 1            | 2        |           75.40        | S   |
+| 2  | 2            | 3        |          482.86        | S   |
+| 3  | 3            | 4        |         4877.14        | S   |
+| 4  | 4            | 20       |         1940.42        | C   |
+| 5  | 4            | 3        |         1940.42        | D   |
+| 6  | 5            | 3        |          967.12        | C   |
+| 7  | 5            | 14       |          967.12        | D   |
+| 8  | 6            | 3        |           80.78        | C   |
+| 9  | 6            | 9        |           80.78        | D   |
+| 10 | 7            | 3        |           98.99        | C   |
+| 11 | 7            | 12       |           98.99        | D   |
+| 12 | 8            | 2        |          135.40        | C   |
+| 13 | 8            | 11       |          135.40        | D   |
+| 14 | 9            | 2        |          201.40        | C   |
+| 15 | 9            | 15       |          201.40        | D   |
+| 16 | 10           | 21       |          150.00        | C   |
+| 17 | 10           | 2        |          150.00        | D   |
+| 18 | 11           | 3        |          250.00        | C   |
+| 19 | 11           | 2        |          250.00        | D   |
+| 20 | 12           | 3        |           29.89        | C   |
+| 21 | 12           | 18       |           29.89        | D   |
+| 22 | 13           | 2        |          100.00        | C   |
+| 23 | 13           | 4        |          100.00        | D   |
+| 24 | 14           | 4        |           17.32        | C   |
+| 25 | 14           | 3        |           17.32        | D   |
++----+--------------+----------+------------------------+-----+
 
-<b>sqlite></b> SELECT conta.codigo AS Codigo, conta.descricao AS Conta, printf('%15.2f',ABS(SUM(IIF(entrada.dcs="D" OR (entrada.dcs="S" and conta.natureza="D"),(-1)*entrada.valor,IIF(entrada.dcs="C" OR (entrada.dcs="S" and conta.natureza="C"),entrada.valor,0))))) AS Saldo, conta.natureza AS 'D/C' FROM entrada INNER JOIN conta ON entrada.conta_id = conta.id INNER JOIN transacao ON entrada.transacao_id = transacao.id GROUP BY conta_id HAVING transacao.data <= '2020/01/31' ORDER BY Codigo;
+<b>sqlite></b> SELECT conta.codigo AS Codigo, conta.descricao AS Conta, 
+  printf('%15.2f',ABS(SUM(IIF(entrada.dcs = "D" OR (entrada.dcs = "S" and conta.natureza = "D"), (-1) * entrada.valor,
+                          IIF(entrada.dcs = "C" OR (entrada.dcs = "S" and conta.natureza = "C"),entrada.valor,0))))) AS Saldo, 
+  conta.natureza AS 'D/C' 
+FROM entrada 
+  INNER JOIN conta ON entrada.conta_id = conta.id 
+  INNER JOIN transacao ON entrada.transacao_id = transacao.id 
+GROUP BY 
+  conta_id 
+HAVING 
+  transacao.data <= '2020/01/31' 
+ORDER BY 
+  Codigo;
 +--------+----------------------+-----------------+-----+
 | Codigo |        Conta         |      Saldo      | D/C |
 +--------+----------------------+-----------------+-----+
@@ -388,4 +415,8 @@ INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(14, 3,   17.32,'
 | 41120  | Servicos Diversos    |          150.00 | C   |
 +--------+----------------------+-----------------+-----+
 </pre>
+
+### O restante dos lançamentos
+
+
 # Referências
