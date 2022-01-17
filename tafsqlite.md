@@ -197,59 +197,61 @@ As contas devem possuir um código para facilitar o uso e a classificação, com
 
 Os registros na tabela `contas` inicialmente serão estes:
 ```sqlite
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Ativo',1,'D',1);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Dinheiro em Carteira',11110,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Conta Bancaria',11120,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Aplicacao Financeira',11130,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Passivo',2,'C',1);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Contas a Pagar',211,'C',1);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Patrimonio Liquido',22,'C',1);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Despesas',3,'D',1);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Energia Eletrica',31111,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Agua e Esgoto',31112,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Gas de Cozinha',31113,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Telefone',31114,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Transportes',31150,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Supermercados',31161,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Farmacias',31162,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Lojas Diversas',31163,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Servicos Diversos',31180,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Impostos',31190,'D',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Receitas',4,'C',1);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Salarios e Proventos',41110,'C',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Servicos Diversos',41120,'C',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Vendas de Itens Diversos',41150,'C',0);
-INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Rendimentos de Aplicacao Financeira',41190,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Ativo',1,'D',1);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Dinheiro em Carteira',11110,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Conta Bancaria',11120,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Aplicacao Financeira',11130,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Passivo',2,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Contas a Pagar',211,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Patrimonio Liquido',22,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Despesas',3,'D',1);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Energia Eletrica',31111,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Agua e Esgoto',31112,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Gas de Cozinha',31113,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Telefone',31114,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Transportes',31150,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Supermercados',31161,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Farmacias',31162,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Lojas Diversas',31163,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Servicos Diversos',31180,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Impostos',31190,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Receitas',4,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Salarios e Proventos',41110,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Servicos Diversos',41120,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Vendas de Itens Diversos',41150,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, sintetica) VALUES('Rendimentos de Aplicacao Financeira',41190,'C',0);
 
 ```
 <pre>
 <b>sqlite></b> .mode table
 <b>sqlite></b> SELECT * FROM conta;
-+----+-------------------------------------+--------+----+
-| id |              descricao              | codigo | dc |
-+----+-------------------------------------+--------+----+
-| 1  | Ativo                               | 1      |    |
-| 2  | Dinheiro em Carteira                | 111100 |    |
-| 3  | Conta Bancaria                      | 111200 |    |
-| 4  | Aplicacao Financeira                | 111300 |    |
-| 5  | Passivo                             | 2      |    |
-| 6  | Despesas                            | 3      |    |
-| 7  | Energia Eletrica                    | 311110 |    |
-| 8  | Agua e Esgoto                       | 311120 |    |
-| 9  | Gas de Cozinha                      | 311130 |    |
-| 10 | Telefone                            | 311140 |    |
-| 11 | Transportes                         | 311150 |    |
-| 12 | Supermercados                       | 311510 |    |
-| 13 | Farmacias                           | 311520 |    |
-| 14 | Lojas Diversas                      | 311530 |    |
-| 15 | Servicos Diversos                   | 311800 |    |
-| 16 | Impostos                            | 311900 |    |
-| 17 | Receitas                            | 4      |    |
-| 18 | Salarios e Proventos                | 411100 |    |
-| 19 | Servicos Diversos                   | 411200 |    |
-| 20 | Vendas de Itens Diversos            | 411500 |    |
-| 21 | Rendimentos de Aplicacao Financeira | 411900 |    |
-+----+-------------------------------------+--------+----+
++----+-------------------------------------+--------+----------+-----------+
+| id |              descricao              | codigo | natureza | sintetica |
++----+-------------------------------------+--------+----------+-----------+
+| 1  | Ativo                               | 1      | D        | 1         |
+| 2  | Dinheiro em Carteira                | 11110  | D        | 0         |
+| 3  | Conta Bancaria                      | 11120  | D        | 0         |
+| 4  | Aplicacao Financeira                | 11130  | D        | 0         |
+| 5  | Passivo                             | 2      | C        | 1         |
+| 6  | Contas a Pagar                      | 211    | C        | 1         |
+| 7  | Patrimonio Liquido                  | 22     | C        | 1         |
+| 8  | Despesas                            | 3      | D        | 1         |
+| 9  | Energia Eletrica                    | 31111  | D        | 0         |
+| 10 | Agua e Esgoto                       | 31112  | D        | 0         |
+| 11 | Gas de Cozinha                      | 31113  | D        | 0         |
+| 12 | Telefone                            | 31114  | D        | 0         |
+| 13 | Transportes                         | 31150  | D        | 0         |
+| 14 | Supermercados                       | 31161  | D        | 0         |
+| 15 | Farmacias                           | 31162  | D        | 0         |
+| 16 | Lojas Diversas                      | 31163  | D        | 0         |
+| 17 | Servicos Diversos                   | 31180  | D        | 0         |
+| 18 | Impostos                            | 31190  | D        | 0         |
+| 19 | Receitas                            | 4      | C        | 1         |
+| 20 | Salarios e Proventos                | 41110  | C        | 0         |
+| 21 | Servicos Diversos                   | 41120  | C        | 0         |
+| 22 | Vendas de Itens Diversos            | 41150  | C        | 0         |
+| 23 | Rendimentos de Aplicacao Financeira | 41190  | C        | 0         |
++----+-------------------------------------+--------+----------+-----------+
 </pre>
 
 # Referências
