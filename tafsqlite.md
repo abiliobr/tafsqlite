@@ -297,15 +297,14 @@ INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(3,4,4877.14,'S')
 
 Depois, a primeira demonstração pode ser obtida assim:
 <pre>
-<b>sqlite></b> SELECT conta.codigo as Codigo, conta.descricao as Conta, conta.natureza AS 'D/C', printf('%15.2f',SUM(IIF(entrada.dcs="D" OR (entrada.dcs="S" and conta.natureza="D"),-1*entrada.valor,IIF(entrada.dcs="C" OR (entrada.dcs="S" and conta.natureza="C"),entrada.valor,0)))) AS Saldo FROM entrada INNER JOIN conta ON entrada.conta_id = conta.id INNER JOIN transacao ON entrada.transacao_id = transacao.id WHERE entrada.dcs = "S" and transacao.data = '2020/01/01' GROUP BY conta_id HAVING transacao.data <= '2020/01/01' ORDER BY Codigo;
-+--------+----------------------+-----+-----------------+
-| Codigo |        Conta         | D/C |      Saldo      |
-+--------+----------------------+-----+-----------------+
-| 11110  | Dinheiro em Carteira | D   |          -75.40 |
-| 11120  | Conta Bancaria       | D   |         -482.86 |
-| 11130  | Aplicacao Financeira | D   |        -4877.14 |
-+--------+----------------------+-----+-----------------+
-
+<b>sqlite></b> SELECT conta.codigo AS Codigo, conta.descricao AS Conta, printf('%15.2f',ABS(SUM(IIF(entrada.dcs="D" OR (entrada.dcs="S" and conta.natureza="D"),-1*entrada.valor,IIF(entrada.dcs="C" OR (entrada.dcs="S" and conta.natureza="C"),entrada.valor,0))))) AS Saldo, conta.natureza AS 'D/C' FROM entrada INNER JOIN conta ON entrada.conta_id = conta.id INNER JOIN transacao ON entrada.transacao_id = transacao.id WHERE entrada.dcs = "S" and transacao.data = '2020/01/01' GROUP BY conta_id HAVING transacao.data <= '2020/01/01' ORDER BY Codigo;
++--------+----------------------+-----------------+-----+
+| Codigo |        Conta         |      Saldo      | D/C |
++--------+----------------------+-----------------+-----+
+| 11110  | Dinheiro em Carteira |           75.40 | D   |
+| 11120  | Conta Bancaria       |          482.86 | D   |
+| 11130  | Aplicacao Financeira |         4877.14 | D   |
++--------+----------------------+-----------------+-----+
 </pre>
 
 ## Lançamentos
@@ -372,22 +371,21 @@ INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(14, 3,   17.32,'
 | 25 | 14           | 3        |           17.32             |
 +----+--------------+----------+-----------------------------+
 
-<b>sqlite></b> SELECT conta.codigo as Codigo, conta.descricao as Conta, conta.natureza AS 'D/C', printf('%15.2f',SUM(IIF(entrada.dcs="D" OR (entrada.dcs="S" and conta.natureza="D"),(-1)*entrada.valor,IIF(entrada.dcs="C" OR (entrada.dcs="S" and conta.natureza="C"),entrada.valor,0)))) AS Saldo FROM entrada INNER JOIN conta ON entrada.conta_id = conta.id INNER JOIN transacao ON entrada.transacao_id = transacao.id GROUP BY conta_id HAVING transacao.data <= '2020/01/31' ORDER BY Codigo;
-+--------+----------------------+-----+-----------------+
-| Codigo |        Conta         | D/C |      Saldo      |
-+--------+----------------------+-----+-----------------+
-| 11110  | Dinheiro em Carteira | D   |          -38.60 |
-| 11120  | Conta Bancaria       | D   |        -1013.82 |
-| 11130  | Aplicacao Financeira | D   |        -4959.82 |
-| 31111  | Energia Eletrica     | D   |          -80.78 |
-| 31113  | Gas de Cozinha       | D   |         -135.40 |
-| 31114  | Telefone             | D   |          -98.99 |
-| 31161  | Supermercados        | D   |         -967.12 |
-| 31162  | Farmacias            | D   |         -201.40 |
-| 31190  | Impostos             | D   |          -29.89 |
-| 41110  | Salarios e Proventos | C   |         1940.42 |
-| 41120  | Servicos Diversos    | C   |          150.00 |
-+--------+----------------------+-----+-----------------+
-
+<b>sqlite></b> SELECT conta.codigo AS Codigo, conta.descricao AS Conta, printf('%15.2f',ABS(SUM(IIF(entrada.dcs="D" OR (entrada.dcs="S" and conta.natureza="D"),(-1)*entrada.valor,IIF(entrada.dcs="C" OR (entrada.dcs="S" and conta.natureza="C"),entrada.valor,0))))) AS Saldo, conta.natureza AS 'D/C' FROM entrada INNER JOIN conta ON entrada.conta_id = conta.id INNER JOIN transacao ON entrada.transacao_id = transacao.id GROUP BY conta_id HAVING transacao.data <= '2020/01/31' ORDER BY Codigo;
++--------+----------------------+-----------------+-----+
+| Codigo |        Conta         |      Saldo      | D/C |
++--------+----------------------+-----------------+-----+
+| 11110  | Dinheiro em Carteira |           38.60 | D   |
+| 11120  | Conta Bancaria       |         1013.82 | D   |
+| 11130  | Aplicacao Financeira |         4959.82 | D   |
+| 31111  | Energia Eletrica     |           80.78 | D   |
+| 31113  | Gas de Cozinha       |          135.40 | D   |
+| 31114  | Telefone             |           98.99 | D   |
+| 31161  | Supermercados        |          967.12 | D   |
+| 31162  | Farmacias            |          201.40 | D   |
+| 31190  | Impostos             |           29.89 | D   |
+| 41110  | Salarios e Proventos |         1940.42 | C   |
+| 41120  | Servicos Diversos    |          150.00 | C   |
++--------+----------------------+-----------------+-----+
 </pre>
 # Referências
