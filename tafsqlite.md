@@ -22,16 +22,16 @@ Inspirado nas ideias apresentadas em [^1] e [^2], o esquema inicial para as tabe
   - `id`
   - `descricao`
   - `codigo`
-* Tabela: **`partimento`**
+* Tabela: **`entrada`**
   - `id`
   - `conta_id`
   - `transacao_id`
   - `valor`
   - `dc`
 
-A tabela **`partimento`** contém os registros que ligam uma transação a uma ou mais contas na tabela **`conta`**, à semelhança do método contábil chamado "partidas dobradas". Portanto, a tabela **`partimento`** representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
+A tabela **`entrada`** contém os registros que ligam uma transação a uma ou mais contas na tabela **`conta`**, à semelhança do método contábil chamado "partidas dobradas". Portanto, a tabela **`entrada`** representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 
-**`transacao ----< partimento >---- conta`**
+**`transacao ----< entrada >---- conta`**
 
 ### Criação do banco de dados e tabelas
 
@@ -56,11 +56,15 @@ CREATE TABLE conta (
     id        INTEGER       PRIMARY KEY AUTOINCREMENT
                             NOT NULL,
     descricao VARCHAR (100) NOT NULL,
-    codigo    VARCHAR (5)   NOT NULL,
-    dc        VARCHAR (1)   CHECK (dc IN ("C", "D") ) 
+    codigo    INTEGER (5)   NOT NULL
+                            UNIQUE,
+    natureza  VARCHAR (1)   CHECK (natureza IN ("C", "D") )
+                            NOT NULL,
+    sintetica BOOLEAN       DEFAULT (0)
+                            NOT NULL
 );
 
-CREATE TABLE partimento (
+CREATE TABLE entrada (
     id           INTEGER         PRIMARY KEY AUTOINCREMENT
                                  NOT NULL,
     transacao_id INTEGER         REFERENCES transacao (id) ON DELETE CASCADE
@@ -71,7 +75,7 @@ CREATE TABLE partimento (
                                  NOT NULL,
     valor        DECIMAL (15, 2) NOT NULL,
     dc           VARCHAR (1)     NOT NULL
-                                 CHECK (dc IN ("C", "D") ) 
+                                 CHECK (dc IN ("C", "D") )
 );
 ```
 
@@ -158,62 +162,64 @@ Após a inserção dos registros, a listagem da tabela **`transacao`** poderá f
 </pre>
 ### As contas
 
-Os registros históricos de transações mostram a necessidade de classificar os eventos financeiros em categorias fixas, chamadas de "contas". Nesse contexto, algumas contas recorrentes são: salários, compras em lojas, vendas de itens, ganhos com serviços prestados, contas de energia, água e telefone, pagamento de impostos, etc.
+Os registros históricos de transações mostram a necessidade de classificar os eventos financeiros em categorias fixas, chamadas de "contas". Nesse exemplo, algumas contas recorrentes são: salários, compras em lojas, vendas de itens, ganhos com serviços prestados, contas de energia, água e telefone, pagamento de impostos, etc.
 
-As contas devem possuir um código para facilitar o uso e a classificação, como mostrado a seguir. Dependendo da necessidade, este esquema de contas poderá ser expandido para ajustar-se a novos eventos.
+O patrimônio pessoal é representado por diversos elementos: dinheiro, contas bancárias, imóveis, veículos, direitos autoriais, obrigações financeiras, etc. Nesta simulação, para as contas do Ativo, vamos considerar apenas a existência de dinheiro em espécie ou disponível em uma conta bancária ou aplicação financeira.
+
+Quanto ao passivo, que são as obrigações a cumprir (prestações, empréstimos contraídos, etc) vamos usar apenas contas a pagar e o patrimônio líquido (ou equidade) para simplificar a demonstração.
+
+As contas devem possuir um código para facilitar o uso e a classificação, como mostrado a seguir. Dependendo da necessidade, este esquema de contas poderá ser expandido para ajustar-se a novas ocorrências.
 <pre>
-R     - Receitas
-R-100 - Salários e Proventos
-R-200 - Serviços Diversos
-R-500 - Vendas de Itens Diversos
-R-900 - Rendimentos de Aplicações Financeiras
-D     - Despesas
-D-010 - Energia Elétrica
-D-020 - Água e Esgoto
-D-030 - Gás de Cozinha
-D-040 - Telefone
-D-050 - Transportes
-D-510 - Supermercados
-D-520 - Farmácias
-D-530 - Lojas Diversas
-D-800 - Serviços Diversos
-D-900 - Impostos
-</pre>
-
-O patrimônio pessoal é representado por diversos elementos: dinheiro, contas bancárias, imóveis, veículos, direitos autoriais, obrigações financeiras, etc.
-
-Nesta simulação, vamos considerar apenas o recebimento de dinheiro em espécie ou através de uma conta bancária. Para simplificar a demonstração, não será levado em conta o passivo, que são obrigações a cumprir, como contas a pagar (prestações), empréstimos, etc.
-
-<pre>
-A     - Ativo
-A-100 - Dinheiro em Carteira
-A-210 - Conta Bancária
-A-220 - Aplicação Financeira
+1      - Ativo
+111100 - Dinheiro em Carteira
+111210 - Conta Bancária
+111220 - Aplicação Financeira
+2      - Passivo
+211    - Contas a Pagar
+22     - Patrimonio Liquido
+3      - Despesas
+311110 - Energia Elétrica
+311120 - Água e Esgoto
+311130 - Gás de Cozinha
+311140 - Telefone
+311150 - Transportes
+311510 - Supermercados
+311520 - Farmácias
+311530 - Lojas Diversas
+311800 - Serviços Diversos
+311900 - Impostos
+4      - Receitas
+411100 - Salários e Proventos
+411200 - Serviços Diversos
+411500 - Vendas de Itens Diversos
+411900 - Rendimentos de Aplicações Financeiras
 </pre>
 
 Os registros na tabela `contas` inicialmente serão estes:
 ```sqlite
-INSERT INTO conta (descricao, codigo) VALUES('Ativo','A');
-INSERT INTO conta (descricao, codigo) VALUES('Dinheiro em Carteira','A-100');
-INSERT INTO conta (descricao, codigo) VALUES('Conta Bancaria','A-210');
-INSERT INTO conta (descricao, codigo) VALUES('Aplicacao Financeira','A-220');
-INSERT INTO conta (descricao, codigo) VALUES('Passivo','P');
-INSERT INTO conta (descricao, codigo) VALUES('Receitas','R');
-INSERT INTO conta (descricao, codigo) VALUES('Salarios e Proventos','R-100');
-INSERT INTO conta (descricao, codigo) VALUES('Servicos Diversos','R-200');
-INSERT INTO conta (descricao, codigo) VALUES('Vendas de Itens Diversos','R-500');
-INSERT INTO conta (descricao, codigo) VALUES('Rendimentos de Aplicacao Financeira','R-900');
-INSERT INTO conta (descricao, codigo) VALUES('Despesas','D');
-INSERT INTO conta (descricao, codigo) VALUES('Energia Eletrica','D-010');
-INSERT INTO conta (descricao, codigo) VALUES('Agua e Esgoto','D-020');
-INSERT INTO conta (descricao, codigo) VALUES('Gas de Cozinha','D-030');
-INSERT INTO conta (descricao, codigo) VALUES('Telefone','D-040');
-INSERT INTO conta (descricao, codigo) VALUES('Transportes','D-050');
-INSERT INTO conta (descricao, codigo) VALUES('Supermercados','D-510');
-INSERT INTO conta (descricao, codigo) VALUES('Farmacias','D-520');
-INSERT INTO conta (descricao, codigo) VALUES('Lojas Diversas','D-530');
-INSERT INTO conta (descricao, codigo) VALUES('Servicos Diversos','D-800');
-INSERT INTO conta (descricao, codigo) VALUES('Impostos','D-900');
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Ativo',1,'D',1);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Dinheiro em Carteira',11110,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Conta Bancaria',11120,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Aplicacao Financeira',11130,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Passivo',2,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Contas a Pagar',211,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Patrimonio Liquido',22,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Despesas',3,'D',1);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Energia Eletrica',31111,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Agua e Esgoto',31112,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Gas de Cozinha',31113,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Telefone',31114,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Transportes',31150,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Supermercados',31161,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Farmacias',31162,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Lojas Diversas',31163,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Servicos Diversos',31180,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Impostos',31190,'D',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Receitas',4,'C',1);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Salarios e Proventos',41110,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Servicos Diversos',41120,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Vendas de Itens Diversos',41150,'C',0);
+INSERT INTO conta (descricao, codigo, natureza, movimentavel) VALUES('Rendimentos de Aplicacao Financeira',41190,'C',0);
 
 ```
 <pre>
@@ -222,27 +228,27 @@ INSERT INTO conta (descricao, codigo) VALUES('Impostos','D-900');
 +----+-------------------------------------+--------+----+
 | id |              descricao              | codigo | dc |
 +----+-------------------------------------+--------+----+
-| 1  | Ativo                               | A      |    |
-| 2  | Dinheiro em Carteira                | A-100  |    |
-| 3  | Conta Bancaria                      | A-210  |    |
-| 4  | Aplicacao Financeira                | A-220  |    |
-| 5  | Passivo                             | P      |    |
-| 6  | Receitas                            | R      |    |
-| 7  | Salarios e Proventos                | R-100  |    |
-| 8  | Servicos Diversos                   | R-200  |    |
-| 9  | Vendas de Itens Diversos            | R-500  |    |
-| 10 | Rendimentos de Aplicacao Financeira | R-900  |    |
-| 11 | Despesas                            | D      |    |
-| 12 | Energia Eletrica                    | D-010  |    |
-| 13 | Agua e Esgoto                       | D-020  |    |
-| 14 | Gas de Cozinha                      | D-030  |    |
-| 15 | Telefone                            | D-040  |    |
-| 16 | Transportes                         | D-050  |    |
-| 17 | Supermercados                       | D-510  |    |
-| 18 | Farmacias                           | D-520  |    |
-| 19 | Lojas Diversas                      | D-530  |    |
-| 20 | Servicos Diversos                   | D-800  |    |
-| 21 | Impostos                            | D-900  |    |
+| 1  | Ativo                               | 1      |    |
+| 2  | Dinheiro em Carteira                | 111100 |    |
+| 3  | Conta Bancaria                      | 111200 |    |
+| 4  | Aplicacao Financeira                | 111300 |    |
+| 5  | Passivo                             | 2      |    |
+| 6  | Despesas                            | 3      |    |
+| 7  | Energia Eletrica                    | 311110 |    |
+| 8  | Agua e Esgoto                       | 311120 |    |
+| 9  | Gas de Cozinha                      | 311130 |    |
+| 10 | Telefone                            | 311140 |    |
+| 11 | Transportes                         | 311150 |    |
+| 12 | Supermercados                       | 311510 |    |
+| 13 | Farmacias                           | 311520 |    |
+| 14 | Lojas Diversas                      | 311530 |    |
+| 15 | Servicos Diversos                   | 311800 |    |
+| 16 | Impostos                            | 311900 |    |
+| 17 | Receitas                            | 4      |    |
+| 18 | Salarios e Proventos                | 411100 |    |
+| 19 | Servicos Diversos                   | 411200 |    |
+| 20 | Vendas de Itens Diversos            | 411500 |    |
+| 21 | Rendimentos de Aplicacao Financeira | 411900 |    |
 +----+-------------------------------------+--------+----+
 </pre>
 
