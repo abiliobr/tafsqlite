@@ -1,4 +1,4 @@
-# PEstudo de uso de um banco de dados SQLite para registros financeiros
+# Estudo de uso de um banco de dados SQLite para registros financeiros
 
 Neste projeto, vamos testar o uso de um banco de dados em SQLite para a gerência de informações financeiras no âmbito pessoal ou doméstico, tais como receitas de salários ou serviços prestados, despesas com alimentação ou transporte, etc. Os passos necessários para o teste são:
 
@@ -12,9 +12,9 @@ Neste projeto, vamos testar o uso de um banco de dados em SQLite para a gerênci
 
 O patrimônio pessoal é representado por diversos elementos: dinheiro físico, contas bancárias, imóveis, veículos, direitos autoriais, obrigações financeiras, etc. Neste estudo, vamos considerar apenas a existência de dinheiro em espécie ou disponível em uma conta bancária ou aplicação financeira no patrimônio atual.
 
-Quanto ao passivo, que são as obrigações a cumprir (prestações, empréstimos contraídos, etc) vamos abordar apenas contas a pagar e o patrimônio líquido (ou equidade) para simplificar a demonstração.
+Quanto ao passivo, que são as obrigações a cumprir (prestações, empréstimos contraídos, etc) vamos abordar apenas contas a pagar e o patrimônio líquido (também chamado de "equidade") para simplificar a demonstração.
 
-As ocorrências financeiras precisam ser organizadas em categorias fixas, chamadas de "contas". Nesse estudo, algumas contas recorrentes serão: salários, compras em lojas, vendas de itens, ganhos com serviços prestados, contas de energia, água e telefone, pagamento de impostos, etc.
+As ocorrências financeiras precisam ser organizadas em categorias fixas, chamadas de "contas". Nesse estudo, algumas contas recorrentes serão: recebimento de salário, compras em lojas, contas de energia e telefone, pagamento de impostos, despesa com transporte, etc.
 
 ## Parte 2 - O projeto de banco de dados
 Inspirado nas ideias apresentadas em [^1], [^2] e [^3], o esquema inicial para as tabelas poderá ficar assim:
@@ -39,7 +39,7 @@ Inspirado nas ideias apresentadas em [^1], [^2] e [^3], o esquema inicial para a
   - `valor`
   - `dc`
 
-A tabela **`entrada`** contém os registros que ligam uma transação a uma ou mais contas na tabela **`conta`**, à semelhança do método contábil chamado "partidas dobradas". Portanto, a tabela **`entrada`** representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
+A tabela **`entrada`** contém os registros que ligam uma transação a uma ou mais contas na tabela **`conta`**, para atender ao método contábil chamado "partidas dobradas". Portanto, a tabela **`entrada`** representa o relacionamento "muitos-para-muitos" conforme o esquema abaixo:
 
 **`transacao ----< entrada >---- conta`**
 
@@ -89,7 +89,7 @@ CREATE TABLE entrada (
 );
 ```
 
-## Parte 2 - Inserção de dados nas tabelas
+## Parte 3 - Inserção de dados nas tabelas
 
 ### Plano de contas
 
@@ -314,8 +314,8 @@ Para fazer os lançamentos para o restante próximas transações, devemos obser
 * As rendas extras foram recebidas em dinheiro físico;
 * As compras em supermercado geralmente são feitas através de débito automático na conta corrente;
 * As contas de energia elétrica, de telefone e os impostos também são pagos através da conta corrente no banco;
-* A compra do gás de cozinha, as compras na farmácia e o gasto com transporte foram feitos com dinheiro em espécie;
-* O recebimento pela venda de itens e o pagamento pelo serviço de limpeza foi feito com dinheiro em espécie.
+* A compra do gás de cozinha, as compras na farmácia, o pagamento pelo serviço de limpeza e o gasto com transporte foram feitos com dinheiro em espécie;
+* O recebimento pela venda da maquina foi feito com dinheiro em espécie.
 
 ```sqlite
 INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES( 4,19, 1940.42,'C');
