@@ -219,7 +219,7 @@ INSERT INTO transacao (data, valor, historico, referente) VALUES('2020-03-31',  
 
 ```
 
-> Observe-se que os valores monetários são sempre informados com ponto decimal (.). Já as datas devem estar no formato YYYY-MM-DD para maior compatibilidade.
+> Note-se que, no SQLite, os valores monetários são sempre informados com ponto decimal (.). Já as datas devem estar no formato YYYY-MM-DD para maior compatibilidade.
 
 Após a inserção dos registros, a listagem da tabela **`transacao`** poderá ficar como abaixo:
 <pre>
@@ -270,7 +270,7 @@ INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(1, 2,  75.40,'D'
 INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(2, 8, 482.86,'C');
 INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(2, 3, 482.86,'D');
 INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(3, 8,4877.14,'C');
-INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(3,    4,4877.14,'D');
+INSERT INTO entrada (transacao_id, conta_id, valor, dcs) VALUES(3, 4,4877.14,'D');
 
 ```
 <pre>
