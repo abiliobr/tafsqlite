@@ -321,7 +321,7 @@ Para fazer os lançamentos para o restante das transações, devemos observar os
 
 * O salário é depositado na conta bancária;
 * A renda de servico realizado e o pagamento pela venda da maquina foram feitos com dinheiro em espécie;
-* As compras em supermercados geralmente são feitas através de débito automático na conta corrente;
+* As compras em supermercados geralmente são feitas através de débito automático na conta corrente no banco;
 * As contas de energia elétrica, de telefone e os impostos também são pagos através da conta corrente no banco;
 * As compras na farmácia, o pagamento pelo serviço de limpeza e o gasto com transporte foram feitos com dinheiro em espécie.
 
